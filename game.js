@@ -152,7 +152,9 @@ function start()
             //state changing
             if(time % core.change_phase_t == 0 )
             {
-                core.cur_state = Math.floor(Math.random()*core_state.length);
+                var not_this_state = core.cur_state;
+                while(core.cur_state == not_this_state)
+                    core.cur_state = Math.floor(Math.random()*core_state.length);
             }
         },
         onhit: function (a){
@@ -211,11 +213,12 @@ function start()
             }
             else if(core.cur_state == core_state.counter)
             {
-                e.d = -time + i * (360/(lvl+1));                
+                e.d = -time + i * (360/(lvl+1));  
             }
             else if(core.cur_state == core_state.random)
             {
                 e.d = Math.random()*360 + i * (360/(lvl+1));
+                e.lspd = e.lspd / 2;
             }
             else if(core.cur_state == core_state.chase)
             {
